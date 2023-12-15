@@ -2,7 +2,7 @@ name: documentation
 
 on:
   push:
-    branches: [ "main"]
+    branches: [ "main", "test-docs"]
 
 permissions:
   contents: write
@@ -23,8 +23,9 @@ jobs:
 
         - name: Sphinx build
           run: |
+            sphinx-apidoc -f -o s3torchconnector s3torchconnector/docs/autoapi/
             cd s3torchconnector/docs
-            sphinx-build -b html . _build/html
+            sphinx-build -b html . _build/html -a
 
         - name: Import docs
           run: |
